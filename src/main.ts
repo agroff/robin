@@ -8,6 +8,7 @@ const engine = new BattleEngine();
 const run = async () => {
     
     const candidateData = await csv.parse(__dirname + '/data/applicants.csv');
+
     const candidates: Candidate[] = [];
     for(const data of candidateData){
         candidates.push(new Candidate(data));
@@ -16,8 +17,6 @@ const run = async () => {
     engine.registerCandidates(candidates);
 
     engine.commenceBattle();
-    // console.log(candidateData);
 };
-
 
 run();
