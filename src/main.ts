@@ -1,9 +1,23 @@
-import { Average } from './Average';
+import { Candidate } from './model/Candidate';
+import { BattleEngine } from './model/BattleEngine';
+import { Csv } from './model/Csv';
 
-const average = new Average();
+const csv = new Csv();
+const engine = new BattleEngine();
 
-const input = [2, 4, 7];
-const result = average.calculate(input);
+const run = async () => {
+    
+    const candidateData = await csv.parse(__dirname + '/data/applicants.csv');
+    const candidates: Candidate[] = [];
+    for(const data of candidateData){
+        candidates.push(new Candidate(data));
+    }
 
-// eslint-disable-next-line
-console.log(`The average of ${input} is ${result.toFixed(2)}!`);
+    engine.registerCandidates(candidates);
+
+    engine.commenceBattle();
+    // console.log(candidateData);
+};
+
+
+run();
